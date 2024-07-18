@@ -35,8 +35,7 @@ async function setUserRole() {
   requesting.value = false;
 }
 
-onMounted(async () => {
-  await rolesStore.getRoles();
+onMounted(() => {
   selectedRole.value = rolesStore.getRoleFromUser(props.user.roleId)?.id || '';
 });
 </script>

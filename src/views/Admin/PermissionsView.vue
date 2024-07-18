@@ -2,15 +2,14 @@
 import { onMounted } from 'vue';
 import UsersList from '@/components/Admin/UsersList.vue';
 import { useUsersStore } from '@/stores/users';
+import { useRolesStore } from '@/stores/roles';
 
 const usersStore = useUsersStore();
-
-async function getUsers() {
-  await usersStore.getUsers();
-}
+const rolesStore = useRolesStore();
 
 onMounted(() => {
-  void getUsers();
+  void usersStore.getUsers();
+  void rolesStore.getRoles();
 });
 </script>
 
