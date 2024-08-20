@@ -11,26 +11,27 @@ import SignIn from '@/views/SignIn.vue';
 import SignUp from '@/views/SignUp.vue';
 
 const routes = [
-    {path: '/', component: HomePage, name: 'home' },
-    {path: '/about', component: AboutPage, name: 'about'},
-    {path: '/admin', component: AdminPage, name: 'admin', children:
-      [
-        {path: '/settings', component: AdminPage, name: 'settings'}
-      ]
-    },
-    {path: '/department', component: DepartmentPage, name: 'department'},
-    {path: '/schedule', component: SchedulePage, name: 'schedule'},
-    {path: '/hr', component: HRPage, name: 'hr'},
-    {path: '/logout', component: LogOut, name: 'logout'},
-    {path: '/signin', component: SignIn, name: 'signin'},
-    {path: '/signup', component: SignUp, name: 'signup'},
-    {path: '/:pathMatch(.*)*', component: NotFoundPage, name: 'NotFound'}
-  ]
-  
+  { path: '/', component: HomePage, name: 'home' },
+  { path: '/about', component: AboutPage, name: 'about' },
+  {
+    path: '/admin',
+    component: AdminPage,
+    name: 'admin',
+    children: [{ path: '/settings', component: AdminPage, name: 'settings' }],
+  },
+  { path: '/department', component: DepartmentPage, name: 'department' },
+  { path: '/schedule', component: SchedulePage, name: 'schedule' },
+  { path: '/hr', component: HRPage, name: 'hr' },
+  { path: '/logout', component: LogOut, name: 'logout' },
+  { path: '/signin', component: SignIn, name: 'signin' },
+  { path: '/signup', component: SignUp, name: 'signup' },
+  { path: '/:pathMatch(.*)*', component: NotFoundPage, name: 'NotFound' },
+];
+
 export const router = createRouter({
-    history: createWebHistory(),
-    routes,
-  })
+  history: createWebHistory(),
+  routes,
+});
 
 // const router = createRouter({
 //   history: createWebHistory(import.meta.env.BASE_URL),

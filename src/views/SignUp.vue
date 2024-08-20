@@ -1,22 +1,27 @@
 <template>
-    <div>SignUp</div>
-    <base-link :to="{ name: 'home' }">
-        Home
-    </base-link>
+  <div>SignUp</div>
+  <base-link :to="{ name: 'home' }"> Home </base-link>
 </template>
 
-<script>
-    import { defineComponent } from 'vue';
-    import BaseLink from '@/components/BaseLink.vue';
+<script lang="ts">
+  import { defineComponent } from 'vue';
+  import BaseLink from '@/components/BaseLink.vue';
 
-    export default defineComponent({
-        name: 'SignUp',
-        components: {
-            BaseLink,
-        }
-    });
+  export default defineComponent({
+      name: 'SignUp',
+      components: {
+          BaseLink,
+      },
+      methods: {
+          async function registerUser(userData) {
+  try {
+    await registerUserWithEmailAndPassword(userData);
+  } catch (error) {
+    console.error(error);
+  }
+}
+      }
+  });
 </script>
 
-<style lang="sass" scoped>
-
-</style>
+<style lang="sass" scoped></style>
