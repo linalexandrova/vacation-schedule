@@ -60,7 +60,6 @@ export default defineComponent({
     },
   },
   async mounted() {
-    // Вызываем fetchRoles при монтировании компонента
     await this.fetchRoles();
   },
 });
