@@ -5,7 +5,8 @@
     <ul>
       <ul>
         <li v-for="role in roles" :key="role.id">
-          {{ role.name }}
+          {{ role.name }} - {{ role.id }}
+          <button @click.prevent="removeRole(role.id)">Удалить роль {{ role.name }}</button>
         </li>
       </ul>
     </ul>
@@ -19,7 +20,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import BaseLink from '@/components/BaseLink.vue';
-import { createRole, fetchRoles, type RoleData } from '@/server/roles';
+import { createRole, fetchRoles, removeRole, type RoleData } from '@/server/roles';
 
 export default defineComponent({
   name: 'RolesPage',
@@ -40,7 +41,6 @@ export default defineComponent({
 
       try {
         await createRole(userData);
-        console.log('Роль создана');
         await this.fetchRoles();
       } catch (error) {
         let result = (error as Error).message;
@@ -58,6 +58,7 @@ export default defineComponent({
         console.log((error as Error).message);
       }
     },
+    async removeRole(id: string) {},
   },
   async mounted() {
     await this.fetchRoles();
