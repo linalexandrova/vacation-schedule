@@ -18,7 +18,7 @@ export async function createUser({ id, email, name = '', username = '', avatar =
       email,
       name,
       username,
-      roleId: '-O1v9dyxyFmb2YVShzly', // NOTE: default 'employee' role id from FB
+      roleId: '-O5IkYOrWfbD6OZAZ7De', // NOTE: default 'employee' role id from FB
       registeredAt,
       avatar,
     };

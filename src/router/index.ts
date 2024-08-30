@@ -9,15 +9,18 @@ import HRPage from '@/views/HRPage.vue';
 import LogOut from '@/views/LogOut.vue';
 import SignIn from '@/views/SignIn.vue';
 import SignUp from '@/views/SignUp.vue';
+import RolesPage from '@/views/RolesPage.vue';
 
 const routes = [
   { path: '/', component: HomePage, name: 'home' },
   { path: '/about', component: AboutPage, name: 'about' },
   {
     path: '/admin',
-    component: AdminPage,
     name: 'admin',
-    children: [{ path: '/settings', component: AdminPage, name: 'settings' }],
+    children: [
+      { path: '', component: AdminPage },
+      { path: 'settings', component: RolesPage },
+    ],
   },
   { path: '/department', component: DepartmentPage, name: 'department' },
   { path: '/schedule', component: SchedulePage, name: 'schedule' },
