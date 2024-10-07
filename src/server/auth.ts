@@ -52,7 +52,7 @@ export async function loginWithEmailAndPassword(userData: UserCredentials) {
 export async function fetchAuthUser() {
   try {
     const authUser = await getAuth();
-    console.log('authUser', authUser);
+    // console.log('authUser', authUser);
 
     if (!authUser) {
       throw new Error(`Not Authorized`);
