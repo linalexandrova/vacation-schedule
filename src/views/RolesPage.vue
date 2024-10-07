@@ -1,12 +1,13 @@
 <template>
   <div>
+    <navigation-bar></navigation-bar>
     <div>RolesPage</div>
     <base-link :to="{ name: 'home' }"> Home </base-link>
     <ul>
       <ul>
         <li v-for="role in roles" :key="role.id">
           {{ role.name }} - {{ role.id }}
-          <button @click.prevent="removeRole(role.id)">Удалить роль {{ role.name }}</button>
+          <button @click.prevent="removeRoleById(role.id)">Удалить роль {{ role.name }}</button>
         </li>
       </ul>
     </ul>
@@ -18,50 +19,67 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import BaseLink from '@/components/BaseLink.vue';
 import { createRole, fetchRoles, removeRole, type RoleData } from '@/server/roles';
+import NavigationBar from '@/components/NavigationBar.vue';
 
 export default defineComponent({
   name: 'RolesPage',
   components: {
     BaseLink,
+    NavigationBar,
   },
-  data() {
-    return {
-      name: '',
-      roles: [] as RoleData[],
-    };
-  },
-  methods: {
-    async onSubmit() {
+  setup() {
+    const name = ref('');
+    const roles = ref<RoleData[]>([]);
+
+    //Создание роли
+    const onSubmit = async () => {
       const userData: RoleData = {
-        name: this.name,
+        name: name.value,
       };
 
       try {
         await createRole(userData);
-        await this.fetchRoles();
+        name.value = '';
+        await fetchRolesList();
       } catch (error) {
-        let result = (error as Error).message;
-        console.log(result);
+        console.log((error as Error).message);
       }
-    },
-    async fetchRoles() {
+    };
+
+    //Получение списка ролей
+    const fetchRolesList = async () => {
       try {
-        const roles = await fetchRoles();
-        this.roles = Object.keys(roles).map((key) => ({
+        const fetchedRoles = await fetchRoles();
+        roles.value = Object.keys(fetchedRoles).map((key) => ({
           id: key,
-          ...roles[key],
+          ...fetchedRoles[key],
         }));
       } catch (error) {
         console.log((error as Error).message);
       }
-    },
-    async removeRole(id: string) {},
-  },
-  async mounted() {
-    await this.fetchRoles();
+    };
+
+    //Удаление роли
+    const removeRoleById = async (id: string) => {
+      try {
+        await removeRole(id);
+        await fetchRolesList();
+      } catch (error) {
+        console.log((error as Error).message);
+      }
+    };
+
+    onMounted(fetchRolesList);
+
+    return {
+      name,
+      roles,
+      onSubmit,
+      removeRoleById,
+    };
   },
 });
 </script>

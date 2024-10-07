@@ -1,5 +1,6 @@
 <template>
   <div>
+    <navigation-bar></navigation-bar>
     <div>SignIn</div>
     <base-link :to="{ name: 'home' }"> Home </base-link>
     <form @submit.prevent="onSubmit">
@@ -14,11 +15,13 @@
 import { defineComponent } from 'vue';
 import BaseLink from '@/components/BaseLink.vue';
 import { loginWithEmailAndPassword, type UserCredentials } from '@/server/auth';
+import NavigationBar from '@/components/NavigationBar.vue';
 
 export default defineComponent({
   name: 'SignIn',
   components: {
     BaseLink,
+    NavigationBar,
   },
   data() {
     return {
